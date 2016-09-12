@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <% include ./public/head %>
+  <link rel="stylesheet" type="text/css" href="/stylesheets/researcher.css">
+
+  <script type="text/javascript">
+    var content = [
+      <% for(var i in all_teacher){ %>
+      { title: '<%= all_teacher[i].reverseName %>&nbsp&nbsp&nbsp(&nbsp<%= all_teacher[i].name %>&nbsp)',
+        url: '/researchers/teacher?depart=<%= all_teacher[i].DID %>&id=<%= all_teacher[i].id %>'
+       },
+      <% } %>
+    ];
+    $(document).ready(function() {
+      $('.dropdown').dropdown();
+      $('.ui.search').search({
+           source: content,
+           maxResults: 10
+      });
+
+      $('.advanced').hide();
+      $('#advanced').on('click', function(){
+        if($(this).is(":checked")) $('.advanced').show();
+        else $('.advanced').hide();
+      });
+    });
+
+    function chooseDepart(obj){
+      $(".search.department").hide();
+      // alert($(obj).attr('data-value'));
+    }
+  </script>
+</head>
+
+<body>
+  <div class="homeBackground">
+    <img style="visibility: hidden; " class="img-responsive test1" src="/images/home/homeBuilding.png"/>
+
+    <!-- quick search at right side -->
+    <% include ./public/quickSearch %>
+
+    <!-- head search -->
+    <% include ./public/headItem %>
+
+
+    <!-- web researcher search -->
+    <div id="researcher">
+      <!-- web bread -->
+      <div id="bread">
+        <img style="cursor: pointer" onclick="location.href='/'" src="/images/researcher/home.png">
+        <img src="/images/researcher/arrow.png" style="margin: 5px 10px 0px 10px;">
+        <p>Researchers</p>
+        <!-- <img src="/images/researcher/arrow.png" style="margin: 5px 10px 0px 10px;">
+        <p>Researchers</p>
+        <img src="/images/researcher/arrow.png" style="margin: 5px 10px 0px 10px;">
+        <p>Researchers</p> -->
+      </div>
+
+      
+      <img src="/images/researcher/Researchers.png" style="margin-top: 32px">
+      <img src="/images/researcher/submit.png" style="margin-top: 32px">
+      <!-- <span class="researcher_search">
+        <p style="margin-left: 285.5px; margin-top: 28px;">Advanced Search<input type="checkbox" style="margin-left: 17px;" checked=""></p>
+      </span> -->
+      <span class="researcher_search">
+        <p>Name</p>
+        <p class="advanced" style="margin-left: 235.72px;">College</p>
+        <p class="advanced" style="margin-left: 214.87px;">age</p>
+        <p class="advanced" style="margin-left: 145.09px;">title</p>
+      </span>
+      <span class="researcher_search">
+        <div class="ui search" style="width: 221px;">
+          <input class="prompt" type="text" style=" border-radius: 2% !important;">
+          <div class="results"></div>
+        </div>
+        <div style="margin-left: 63.5px; min-width: 222px; margin-right:0px;" class="ui selection dropdown  advanced">
+          <input type="hidden" name="gender">
+          <div class="default text"></div>
+          <div class="menu">
+            <div class="item" data-value="none">-- 不限 --</div>
+            <div class="item" data-value="文學院" onclick="chooseDepart(this);"><img style="width: 15px;" src="/images/college/文學院/院徽.jpg" alt=""></i>文學院</div>
+            <div class="item" data-value="規劃與設計學院" onclick="chooseDepart();"><img style="width: 15px;" src="/images/college/規劃與設計學院/院徽.jpg" alt=""></i>規劃與設計學院</div>
+            <div class="item" data-value="理學院"><img style="width: 15px;" src="/images/college/理學院/院徽.jpg" alt=""></i>理學院</div>
+            <div class="item" data-value="生物與科技學院" onclick="chooseDepart();"><img style="width: 15px;" src="/images/college/生物與科技學院/院徽.jpg" alt=""></i>生物與科技學院</div>
+            <div class="item" data-value="工學院"><img style="width: 15px;" src="/images/college/工學院/院徽.jpg" alt=""></i>工學院</div>
+            <div class="item" data-value="電機資訊學院" onclick="chooseDepart();"><img style="width: 15px;" src="/images/college/電機資訊學院/院徽.jpg" alt=""></i>電機資訊學院</div>
+            <div class="item" data-value="管理學院" onclick="chooseDepart();"><img style="width: 15px;" src="/images/college/管理學院/院徽.jpg" alt=""></i>管理學院</div>
+            <div class="item" data-value="醫學院"><img style="width: 15px;" src="/images/college/醫學院/院徽.jpg" alt=""></i>醫學院</div>
+            <div class="item" data-value="社會科學院" onclick="chooseDepart();"><img style="width: 15px;" src="/images/college/社會科學院/院徽.jpg" alt=""></i>社會科學院</div>
+          </div>
+        </div>
+        <div style="margin-left: 53px; min-width: 108px;" class="ui selection dropdown advanced">
+          <input type="hidden" name="gender">
+          <div class="default text"></div>
+          <div class="menu">
+            <div class="item" data-value="a">30-39</div>
+            <div class="item" data-value="b">40-49</div>
+            <div class="item" data-value="c">50-59</div>
+            <div class="item" data-value="d">60-69</div>
+            <div class="item" data-value="e">70 up</div>
+          </div>
+        </div>
+        <div style="margin-left: 64px; min-width: 152px;" class="ui selection dropdown advanced">
+          <input type="hidden" name="gender">
+          <div class="default text"></div>
+          <div class="menu">
+            <div class="item" data-value="Professor">Professor</div>
+            <div class="item" data-value="Associate Professor">Associate Professor</div>
+            <div class="item" data-value="Assistant Professor">Assistant Professor</div>
+          </div>
+        </div>
+      </span>
+      <span class="researcher_search">
+        <p style="margin-top: 28px;">Advanced Search<input id="advanced" type="checkbox" style="margin-left: 17px;"></p>
+        <p class="advanced" style="margin-left: 110.58px; margin-top: 28px;">Department</p>
+      </span>
+      <span class="researcher_search advanced">
+        <div style="margin-left: 285.5px; min-width: 222px;" class="ui selection dropdown advanced">
+          <input type="hidden" name="gender">
+          <div class="default text"></div>
+          <div class="menu">
+            <!-- <div class="item" data-value="1">Male</div>
+            <div class="item" data-value="0">Female</div> -->
+          </div>
+        </div>
+      </span>
+    </div>
+
+
+    <div id="middle">
+      <div id="white_search">
+        <div style="margin-left: 15px;">
+          <button class="btn btn-primary" onclick="location.href='/researchers?page=1&letter=All'" style="margin-right: 5px;">All</button>
+          <% for(var i in letter){ %>
+          <button class="mini ui button" onclick="location.href='/researchers?page=1&letter=<%= letter[i].content  %>'" style="width: 40px; margin-top: 17px;"><%= letter[i].content %></button>
+          <% } %>
+        </div>
+      </div>
+      <% if(error != true) {%>
+      <div class="ui items grid" style="margin-left: 100px;">
+        <% for(var i in query_teacher){ %>
+        <div class="item eight wide column teacher" onclick="location.href='/researchers/teacher?depart=<%= query_teacher[i].DID %>&id=<%= query_teacher[i].id %>'">
+          <div class="ui small image">
+            <img src="/images/researcher/profile.png">
+          </div>
+          <div class="content" style="font-size: 20px">
+            <p><%= query_teacher[i].reverseName %>(<%= query_teacher[i].name %>)</p>
+            <p><%= query_teacher[i].title %></p>
+            <p><%= query_teacher[i].department_en %></p>
+            <p>(<%= query_teacher[i].department %>)</p>
+            <div class="description">
+              <p></p>
+            </div>
+          </div>
+        </div>
+        <% } %>
+      </div>
+      <div style="display: flex;flex-direction: column; align-items: center;">
+        <div style="margin-top: 20px">
+          <p>[page <%=current_page %>]&nbsp, &nbsp&nbsp<%= current_min%> - <%= current_max%> of <%= number%></p>
+        </div>
+        <nav>
+          <ul class="pagination">
+
+        <li ><a href="/researchers?page=<%= previous %>&letter=<%= select_l %>"><i class="arrow circle left icon"></i></a></li>
+
+            <% for(var i in show_page){ %>
+            <li><a href="/researchers?page=<%= show_page[i].page %>&letter=<%= select_l %>"><%= show_page[i].page %></a></li>
+            <% } %>
+
+            <li ><a href="/researchers?page=<%= next %>&letter=<%= select_l %>"><i class="arrow circle right icon"></i></a></li>
+          </ul>
+        </nav>
+      </div>
+      <% }else {%>
+      <p style="text-align: center; margin-top: 50px; font-size: 50px;">查無結果</p>
+      <% } %>
+    </div>
+
+    <% include ./public/footer %>
+  </div>
+
+
+
+
+</body>

@@ -1,0 +1,36 @@
+#researcher{
+   position: absolute;
+   padding-left: 155px;
+   top:  236.5px;
+   left: 0px;
+   right: 0px;
+   color: white;
+}
+
+#middle #white_search{
+   background-color: white; 
+   height: 69.5px; 
+   min-width: 1280px;
+}
+
+.researcher_search{
+   display: flex;
+}
+
+.researcher_search p{
+   font-size: 20px;
+}
+
+.teacher{
+  display: flex !important;
+  margin-top: 0px !important;
+} /*researcher的一格一格頁面設定*/
+
+.teacher div{
+   color: white !important;
+}
+
+.item.eight.wide.column.teacher :hover{
+   background-color: #708090;
+   cursor: pointer;
+}

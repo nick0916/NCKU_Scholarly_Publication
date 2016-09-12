@@ -1,0 +1,57 @@
+#middle #white_search{
+   background-color: white; 
+   height: 69.5px; 
+   min-width: 1280px;
+   display: inline-flex;
+   font-size: 40px;
+}
+
+
+/*teacher.ejs*/
+/*===========================================*/
+
+#profile {
+   display: inline-flex;
+   position: absolute;
+   top: 304px;
+   left: 85px;
+   color: white;
+}
+
+#white_search > div{
+   margin-left: 70px;
+   margin-top: 13px;
+}
+
+#white_search .text{
+   font-family: cambria, Georgia, serif;
+}
+
+#ringChart{
+   min-width: 297px;
+   height: 297px;
+   margin-left: 92px;
+   margin-top: 57px;
+}
+
+#stakedBar{
+   width: 758px;
+   height: 393px;
+   margin-right: 127px;
+   margin-left: 92px;
+}
+
+.tableData{
+   background-color: white !important;
+   margin-right: 114px !important;
+   margin-right: 22px !important;
+   width: 540px !important;
+}
+
+.catagory div{
+   margin-bottom: 8px;
+}
+
+#dashboard{
+   color: white;
+}

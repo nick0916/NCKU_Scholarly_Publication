@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <% include ./public/head %>
+  <link rel="stylesheet" type="text/css" href="/stylesheets/teacher.css">
+
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/modules/exporting.js"></script>
+  <script src="/javascripts/ringChart.js"></script>
+
+  <script type="text/javascript">
+    $(function () {
+        Highcharts.setOptions({
+            colors: ['rgb(255, 255, 255)', 'rgb(204, 204, 204)', 'rgb(153, 153, 153)', 'rgb(128, 128, 128)', 'rgb(77, 77, 77)', 'rgb(51, 51, 51)']
+
+            // colors: ['rgb(135, 180, 235)', 'rgb(239, 162, 96)', 'rgb(151, 241, 123)', 'rgb(253, 117, 119)', 'rgb(252, 235, 118)', 'rgb(255, 255, 255)']
+        });
+        $('#stakedBar').highcharts({
+            chart: {
+                type: 'column',
+                backgroundColor: '#081F3D',
+            },
+            credits: {
+                text: '',
+            },
+            title: {
+                text: ''
+            },
+            exporting:{enabled: false},
+            xAxis: {
+                categories: [<%- year %>],
+                labels: {
+                    enabled: false,
+                },
+                showFirstLabel: true,
+                showLastLabel: true,
+
+            },
+            yAxis: {
+                reversedStacks: false,
+                gridLineColor: '#545454',
+                min: 0,
+                title: {
+                    text: ''
+                },
+                stackLabels: {
+                    enabled: false,
+                    style: {
+                        fontWeight: 'bold',
+                        color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+                    }
+                }
+            },
+            legend: {
+                align: 'left',
+                x: 0,
+                verticalAlign: 'bottom',
+                y: 25,
+                floating: true,
+                backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || 'white',
+                borderColor: '#CCC',
+                borderWidth: 1,
+                shadow: false,
+                enabled: false
+            },
+            tooltip: {
+                headerFormat: '<b>{point.x}</b><br/>',
+                pointFormat: '{series.name}: {point.y}<br/>Total: {point.stackTotal}',
+
+            },
+            plotOptions: {
+                series: {
+                    borderWidth: 0,
+                    // stacking: 'normal'
+                },
+                column: {
+                    stacking: 'normal',
+                    dataLabels: {
+                        enabled: false,
+                        color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
+                        style: {
+                            textShadow: '0 0 3px black'
+                        }
+                    },
+                    
+                }
+            },
+            series: [
+            <% for(var i in data){ %>
+            {
+                name: "<%= i %>",
+                data: [<%- data[i] %>]
+
+            },
+            <% } %>
+            // ,{
+            //     name: 'test',
+            //     data:[<%- paper %>]
+            // }  
+            ]
+        });
+    });
+  </script>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $('.dashboard').on('click', function(){
+        $('#publication').hide();
+        $('#dashboard').show();
+      })
+
+      $('.publication').on('click', function(){
+        $('#dashboard').hide();
+        $('#publication').show();
+      })
+    });
+  </script>
+
+</head>
+
+<body>
+  <div class="homeBackground">
+    <img style="visibility: hidden; " class="img-responsive test1" src="/images/home/homeBuilding.png"/>
+
+    <!-- quick search at right side -->
+    <% include ./public/quickSearch %>
+
+    <!-- head search -->
+    <% include ./public/headItem %>
+
+    <!-- web bread -->
+    <div style="position: absolute; left: 0px; top: 236.5px; margin-left: 63px;">
+      <div id="bread">
+        <img style="cursor: pointer" onclick="location.href='/'" src="/images/researcher/home.png">
+        <img src="/images/researcher/arrow.png" style="margin: 5px 10px 0px 10px;">
+        <a href="/researchers?page=1&letter=All">Researchers</a>
+        <img src="/images/researcher/arrow.png" style="margin: 5px 10px 0px 10px;">
+        <p><%= queryTeacher.ename %></p>
+      </div>
+    </div>
+
+    <!-- teacher profile info -->
+    <div id="profile">
+      <div style="display: flex;flex-direction:column;">
+        <img src="/images/teacher/profile-2.png" style="width: 215px; height: 236px;">
+        <img src="/images/teacher/Scopus-button.png" style="width: 135px; height: 35px; margin-left: 42px; margin-top: 15px;">
+        <img src="/images/teacher/WebSience-button.png" style="width: 135px; height: 35px; margin-left: 42px; margin-top: 10px;">
+      </div>
+      
+      <div id="profile_info" style="margin-left: 42px;">
+        <p style="font-size: 60px">Researcher</p>
+        <p style="font-size: 20px"><%= queryTeacher.ename %>&nbsp&nbsp(<%= queryTeacher.name %>)</p>
+        <p style="font-size: 20px"><%= queryTeacher.department_en %>, NCKU</p>
+        <br>
+        <p>TEL:(06)275-7575#<%= queryTeacher.telephone %></p>
+        <!-- <p>FAX:</p> -->
+        <p>E-MAIL:<%= queryTeacher.email %></p>
+        <img src="/images/teacher/ConnectEditor-button.png" style="width: 125px; height: 28px; margin-left: 50px; margin-top: 6px;">
+        
+      </div>
+      
+    </div>
+    
+
+    <!-- middle content -->
+    <div id="middle">
+      <div id="white_search">
+              <div class="ui dropdown">
+                <div class="text" style="font-size: 30px">Profile</div>
+                <div class="menu">
+                  <div class="item" id="button">New_A</div>
+                  <div class="item" id="button">New_B</div>
+                </div>
+              </div>
+              <div class="ui dropdown dashboard">
+                <div class="text dashboard" style="font-size: 30px">DashBoard</div>
+                <!-- <div class="menu">
+                  <div class="item" id="button">Scopus</div>
+                  <div class="item" id="button">Web of Sience</div>
+                </div> -->
+              </div>
+              <div class="ui dropdown publication">
+                <div class="text publication" style="font-size: 30px">Publication</div>
+                <!-- <div class="menu">
+                  <div class="item" id="button">New_A</div>
+                  <div class="item" id="button">New_B</div>
+                </div> -->
+              </div>
+              <div class="ui dropdown">
+                <div class="text" style="font-size: 30px">Research Internet</div>
+                <div class="menu">
+                  <div class="item" id="button">New_A</div>
+                  <div class="item" id="button">New_B</div>
+                </div>
+              </div>
+              <div class="ui dropdown">
+                <div class="text" style="font-size: 30px">Collaboration</div>
+                <div class="menu">
+                  <div class="item" id="button">New_A</div>
+                  <div class="item" id="button">New_B</div>
+                </div>
+              </div>
+      </div>
+      <div id="dashboard" style="">
+        <div style="display: inline-flex; margin-top: 55px;">
+          <div id="ringChart" style=""></div> 
+          <div id="stakedBar" style=""></div>
+        </div>
+        <!-- <div style="display: inline-flex">
+          <p style="margin-left: 500px;"><%= year[0] %></p>
+          <p style="margin-left: 612px;"><%= year[year.length - 1] %></p>
+        </div> -->
+        
+        <div style="display: inline-flex; margin-bottom: 20px; margin-top: 17px; margin-left: 480px;" >
+          <% for(var i in title){ %>
+          <span style="background-color: <%= color[i] %>; border-radius: 10%; width: 35px; margin-left: 40px;"></span>
+          &nbsp;&nbsp;&nbsp;<p><%= title[i] %> &nbsp; <%= count[title[i]] %></p>
+        <% } %>
+          <!-- <span style="background-color: #888888; border-radius: 10%; width: 35px; margin-left: 70px;"></span>
+          &nbsp;&nbsp;&nbsp;<p>Journals</p> -->
+        </div>
+        <div style="display: inline-flex; margin-bottom: 52px;">
+          <div class="ui list catagory" style="margin-left: 112px; width: 450px;">
+            <div class="item">
+              <img class="ui image" src="/images/teacher/1.png" style="width: 30px; height: 30px">
+              <div class="content word" style="line-height: 2">
+                Public Health
+              </div>
+            </div>
+            <div class="item">
+              <img class="ui image" src="/images/teacher/2.jpg" style="width: 30px; height: 30px">
+              <div class="content word" style="line-height: 2">
+                Environment Measurement
+              </div>
+            </div>
+            <div class="item">
+              <img class="ui image" src="/images/teacher/3.jpg" style="width: 30px; height: 30px">
+              <div class="content word" style="line-height: 2">
+                Environmental Toxicology Risk Assessment
+              </div>
+            </div>
+            <div class="item">
+              <img class="ui image" src="/images/teacher/4.jpg" style="width: 30px; height: 30px">
+              <div class="content word" style="line-height: 2">
+                Public Health
+              </div>
+            </div>
+            <div class="item">
+              <img class="ui image" src="/images/teacher/5.jpg" style="width: 30px; height: 30px">
+              <div class="content word" style="line-height: 2">
+                Environment Measurement
+              </div>
+            </div>
+            <div class="item">
+              <img class="ui image" src="/images/teacher/6.jpg" style="width: 30px; height: 30px">
+              <div class="content word" style="line-height: 2">
+                Environmental Toxicology Risk Assessment
+              </div>
+            </div>
+          </div>
+
+          <table class="ui very compact table tableData">
+            <thead>
+              <tr>
+                <th class="word" style="color: black; font-size: 20px;">Scopus Piblication in eSpace</th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="word" style="color: black">Citation average</td>
+                <td></td>
+                <td>
+                  <div class="ui label grey" style="width: 100px;"><%= citations_a.toFixed(2) %></div>
+                </td>
+              </tr>
+              <tr>
+                <td class="word" style="color: black">Citations</td>
+                <td></td>
+                <td>
+                  <div class="ui label grey" style="width: 100px;"> <%= citations %></div>
+                </td>
+              </tr>
+              <tr>
+                <td class="word" style="color: black">Publications</td>
+                <td></td>
+                <td>
+                  <div class="ui label grey" style="width: 100px;"><%= paper.length %></div>
+                </td>
+              </tr>
+              <tr>
+                <td class="word" style="color: black">H-index</td>
+                <td></td>
+                <td>
+                  <div class="ui label grey" style="width: 100px;"> <%= h_index %></div>
+                </td>
+              </tr>
+              <tr>
+                <td class="word" style="color: black">Publication range</td>
+                <td></td>
+                <td>
+                  <div class="ui label grey" style="width: 100px;"><%= year[0] %> - <%= year[year.length - 1] %></div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+         </div>
+      </div>
+      <div id="publication" style="margin-top: 50px; margin-bottom: 50px; display: none;">
+        <!--paper放置區-->
+        <% for(var i in paper){ %>
+        <div class="ui items" style="margin-left: 100px; color: white;">
+          <div class="item">
+            <div class="content">
+              <a class="header" style="text-align:left; color: #888888" href="https://www.scopus.com/record/display.uri?eid=<%= paper[i].eid %>&origin=inward&txGid=0" target="_blank"> <%= paper[i]["dc:title"] %></a>
+
+              <div class="meta" style="color: #6e858c">
+                <p class="cinema">
+                  Author: &nbsp
+                  <% for(var j in paper[i].author){ %>
+                  <a href="https://www.scopus.com/authid/detail.uri?authorId=<%= paper[i].author[j].authid %>" target="_blank" title=""><%= paper[i].author[j]["surname"] %>&nbsp<%= paper[i].author[j]["given-name"] %></a>
+                  &nbsp
+                  <% } %>
+                </p>
+                <p class="cinema">PublicationName: &nbsp&nbsp<%= paper[i]["prism:publicationName"] %></p>
+                <p class="cinema">EID: &nbsp&nbsp<%= paper[i].eid %></p>
+                <p class="cinema">DOI: &nbsp&nbsp<%= paper[i]["prism:doi"] %></p>
+                <p class="cinema">Citation: &nbsp&nbsp<%= paper[i]["citedby-count"] %></p>
+              </div>
+
+              <div class="description">
+                <p></p>
+              </div>
+              <div class="extra">
+                <!-- <div class="ui label">Citation<div class="detail"><%= paper[i].cite %></div></div>
+                &nbsp&nbsp -->
+                <div class="ui tag label"><%= paper[i].subtypeDescription %></div>
+                &nbsp&nbsp
+                <div class="ui tag label"><%= paper[i]["prism:coverDate"] %></div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <% } %>
+      </div>
+    </div>
+
+    <% include ./public/footer %>
+  </div>
+</body>

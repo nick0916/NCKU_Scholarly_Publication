@@ -1,0 +1,114 @@
+body{
+   display: flex;
+   flex-direction: column;
+   max-width: 1280px;
+   margin: auto;
+}
+
+p, h1, h2, h3, a{
+   font-family: cambria, Georgia, serif;
+   margin-bottom: 0px; /*消除semantic效果*/
+   font-weight: 100;
+}
+
+
+.homeBackground{
+   min-width: 1280px;
+   background-image: url(/images/home/homeBuilding.png);
+   background-repeat: no-repeat;
+   position: relative;
+}
+
+#middle{
+   margin-top: -213px;
+   display: flex;
+   flex-direction: column;
+
+   min-width: 1280px;
+   background-color: rgba(8, 31, 61, 1);
+   min-height: 575px;
+}
+
+#footer{
+   position: relative;
+   background-color: rgba(6, 22, 47, 1);
+   height: 265px;
+   min-width: 1280px;
+}
+
+#head{
+   min-width: 1280px;
+   height: 236.5px;
+   position: absolute;
+   left: 0px;
+   right: 0px;
+   top: 0px;
+   padding: 68px 68px 0px 63px;
+   z-index: 1;
+   display: flex;
+   flex-direction: column;
+   justify-content: space-between;
+}
+#head_item{
+   display: flex;
+   flex-direction: row;
+}
+
+#head_button > .ui.dropdown{
+   width: 200px;
+   margin-top: 15px;
+}
+
+#head_button.item{
+   width: 150px;
+}
+
+#head_button{
+   display: flex;
+   flex-wrap: wrap;
+}
+
+#quicksearch{
+   position: absolute;
+   right: 0px;
+   top: 90px;
+   background-color: rgba(4, 28, 54, 1);
+   width: 50px;
+   height: 111.6px;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   z-index: 2;
+}
+
+#quicksearch img{
+   margin: 12px 0px 12px 0px;
+}
+
+#bread{
+   bottom:  0px;
+   left: 0px;
+   right: 0px;
+   display: flex;
+   flex-direction: row;
+   color: white;
+   font-size: 25px;
+}
+
+#bread img{
+   height: 100%;
+}
+
+#bread a{
+   line-height: 1.3;
+}
+
+#bread a:hover{
+   color: #DDDDDD;
+   cursor: pointer;
+}
+
+#bread a:active{
+   color: #FFFFFF;
+}
